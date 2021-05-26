@@ -19,7 +19,6 @@
       <NewsCard />
       <NewsCard />
       <NewsCard />
-      <NewsCard />
     </q-list>
   </q-drawer>
 </template>

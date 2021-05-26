@@ -20,12 +20,13 @@
             class="q-pa-md lt-md header-icon"
           />
         </q-toolbar-title>
+        <q-icon name="coronavirus" size="sm" color="primary" class="gt-md" />
       </q-toolbar>
     </q-header>
 
     <LeftDrawer :left="left" />
     <RightDrawer />
-
+    coronavirus
     <q-page-container>
       <router-view />
     </q-page-container>

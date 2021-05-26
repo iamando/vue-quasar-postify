@@ -1,14 +1,16 @@
 <template>
   <q-page class="relative-position">
     <q-scroll-area class="absolute full-width full-height">
-      <div class="q-pa-md row justify-center items-center q-gutter-md">
-        <ExploreCard />
-        <ExploreCard />
-        <ExploreCard />
-        <ExploreCard />
-        <ExploreCard />
-        <ExploreCard />
-        <ExploreCard />
+      <div
+        class="q-px-xs row justify-center items-center q-col-gutter-md column"
+      >
+        <ExploreCard class="col" />
+        <ExploreCard class="col" />
+        <ExploreCard class="col" />
+        <ExploreCard class="col" />
+        <ExploreCard class="col" />
+        <ExploreCard class="col" />
+        <ExploreCard class="col" />
       </div>
     </q-scroll-area>
   </q-page>
