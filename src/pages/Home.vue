@@ -107,7 +107,6 @@ export default {
 
       this.postifies.unshift(newPostify);
       this.newPostifyContent = null;
-      console.log(this.postifies);
     },
     deletePostify(postify) {
       let dataToDelete = postify.date;
@@ -122,7 +121,6 @@ export default {
     },
     previewFiles() {
       this.filesUpload = this.$refs.files.files;
-      console.log(this.filesUpload);
     },
   },
 };

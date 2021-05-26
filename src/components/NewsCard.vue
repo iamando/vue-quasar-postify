@@ -2,8 +2,8 @@
   <q-item class="q-pa-md">
     <q-item-section>
       <q-item-label overline class="text-grey">Sport</q-item-label>
-      <q-item-labels class="text-weight-bold text-subtitle2"
-        >Something Amazing Happening</q-item-labels
+      <q-item-label class="text-weight-bold text-subtitle2"
+        >Something Amazing Happening</q-item-label
       >
       <q-item-label lines="3" class="text-body2"
         >Lorem ipsum dolor sit amet consectetur adipisicing elit. At, quos?

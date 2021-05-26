@@ -20,13 +20,18 @@
             class="q-pa-md lt-md header-icon"
           />
         </q-toolbar-title>
-        <q-icon name="coronavirus" size="sm" color="primary" class="gt-md" />
+        <div class="gt-md flex items-center">
+          <span class="text-weight-bold q-px-sm text-primary"
+            >Stay Safe with COVID 19</span
+          >
+          <q-icon name="coronavirus" size="sm" color="primary" class="gt-md" />
+        </div>
       </q-toolbar>
     </q-header>
 
     <LeftDrawer :left="left" />
     <RightDrawer />
-    coronavirus
+
     <q-page-container>
       <router-view />
     </q-page-container>

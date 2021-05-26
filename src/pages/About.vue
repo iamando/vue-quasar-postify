@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-lg">
-    <h4 class="q-mt-none q-mb-md text-weight-bold">About Postify</h4>
-    <div class="text-body1">
+    <h4 class="q-mt-none q-mb-md text-weight-bold text-h5">About Postify</h4>
+    <div class="text-body2">
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque velit
         molestias nobis? Eum deleniti maiores laborum quisquam ipsam vel neque
