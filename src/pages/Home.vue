@@ -32,6 +32,20 @@
           />
         </div>
       </div>
+      <q-card-actions align="right">
+        <input
+          ref="files"
+          type="file"
+          name="files"
+          id="files"
+          hidden
+          @change="previewFiles"
+          multiple
+        />
+        <q-btn flat round color="grey" icon="image" @click="chooseFiles" />
+        <q-btn flat round color="grey" icon="mood" />
+        <q-btn flat round color="grey" icon="event" />
+      </q-card-actions>
 
       <q-separator size="10px" color="grey-2" class="divider" />
 
@@ -67,7 +81,8 @@ export default {
   },
   data() {
     return {
-      newPostifyContent: "",
+      newPostifyContent: null,
+      filesUpload: [],
       postifies: [
         {
           content:
@@ -86,11 +101,13 @@ export default {
     addNewPostify() {
       let newPostify = {
         content: this.newPostifyContent,
+        images: this.filesUpload,
         date: Date.now(),
       };
 
       this.postifies.unshift(newPostify);
-      this.newPostifyContent = "";
+      this.newPostifyContent = null;
+      console.log(this.postifies);
     },
     deletePostify(postify) {
       let dataToDelete = postify.date;
@@ -98,6 +115,14 @@ export default {
         (postify) => postify.date === dataToDelete
       );
       this.postifies.splice(index, 1);
+    },
+    chooseFiles() {
+      let fileInputElement = this.$refs.files;
+      fileInputElement.click();
+    },
+    previewFiles() {
+      this.filesUpload = this.$refs.files.files;
+      console.log(this.filesUpload);
     },
   },
 };

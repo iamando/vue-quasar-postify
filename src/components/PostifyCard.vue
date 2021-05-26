@@ -14,21 +14,31 @@
           &bull; {{ postify.date | relativeDate }}
         </span>
       </q-item-label>
-      <q-item-label class="post-content text-subtitle1">
-        {{ postify.content }}
-      </q-item-label>
-      <div class="post-icons row justify-between q-mt-sm">
-        <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
-        <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
-        <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
-        <q-btn
-          @click="deletePostify(postify)"
-          color="grey"
-          icon="fas fa-trash"
-          size="sm"
-          flat
-          round
-        />
+      <div class="q-py-sm">
+        <div v-if="postify.images">
+          <q-img
+            v-for="image in postify.images"
+            :key="image.name"
+            v-bind:src="postify.images.name"
+            class="postifyImage"
+          />
+        </div>
+        <q-item-label class="post-content text-subtitle1 q-py-md">
+          {{ postify.content }}
+        </q-item-label>
+        <div class="post-icons row justify-between q-mt-sm">
+          <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
+          <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
+          <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
+          <q-btn
+            @click="deletePostify(postify)"
+            color="grey"
+            icon="fas fa-trash"
+            size="sm"
+            flat
+            round
+          />
+        </div>
       </div>
     </q-item-section>
   </q-item>
@@ -48,3 +58,7 @@ export default {
 };
 </script>
 
+<style lang="sass" scoped>
+.postifyImage
+  max-width: 20%
+</style>
