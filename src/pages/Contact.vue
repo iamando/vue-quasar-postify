@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="q-pa-md">
+    <div class="q-pa-md q-mt-xl">
       <q-form class="q-gutter-md" @submit="onSubmit">
         <div class="row justify-between">
           <div class="col q-mx-md">
