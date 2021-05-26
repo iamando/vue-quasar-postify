@@ -4,7 +4,7 @@
       <div class="q-px-lg q-pb-md">
         <q-timeline color="secondary">
           <q-timeline-entry heading>
-            Timeline heading
+            Support
             <br />
           </q-timeline-entry>
 
