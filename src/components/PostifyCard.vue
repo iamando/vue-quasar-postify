@@ -15,21 +15,16 @@
         </span>
       </q-item-label>
       <div class="q-py-sm">
-        <div v-if="postify.images">
-          <q-img
-            v-for="image in postify.images"
-            :key="image.name"
-            v-bind:src="postify.images.name"
-            class="postifyImage"
-          />
+        <div v-if="postify.imageUrl">
+          <q-img :src="postify.imageUrl" class="postifyImage" />
         </div>
         <q-item-label class="post-content text-subtitle1 q-py-md">
           {{ postify.content }}
         </q-item-label>
         <div class="post-icons row justify-between q-mt-sm">
+          <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
           <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
           <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
-          <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
           <q-btn
             @click="deletePostify(postify)"
             color="grey"
@@ -60,5 +55,6 @@ export default {
 
 <style lang="sass" scoped>
 .postifyImage
-  max-width: 20%
+  max-width: 150px
+  max-height: 150px
 </style>

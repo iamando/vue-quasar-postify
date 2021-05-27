@@ -7,17 +7,25 @@
         <div class="text-orange-9 text-weight-bold text-subtitle1">
           #hashtag
         </div>
-        <div class="text-h6 text-weight-bold q-mt-sm q-mb-xs">John Doe</div>
-        <div class="text-grey text-subtitle2">
+        <div class="q-mt-sm q-mb-xs text-subtitle1">
+          <q-item-label>
+            <strong>John Doe</strong>
+            <span class="text-grey-7 q-ml-sm">
+              @johndoe <br class="lt-md" />
+              &bull; one minutes ago
+            </span>
+          </q-item-label>
+        </div>
+        <div class="text-subtitle2">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </div>
       </q-card-section>
 
-      <q-card-actions align="right">
-        <q-btn flat round color="red" icon="favorite" />
-        <q-btn flat round color="teal" icon="bookmark" />
-        <q-btn flat round color="primary" icon="share" />
+      <q-card-actions align="left">
+        <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
+        <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
+        <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
       </q-card-actions>
     </q-card>
   </div>

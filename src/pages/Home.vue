@@ -32,15 +32,23 @@
           />
         </div>
       </div>
+
+      <div class="q-mx-xl" v-if="imageUploadedUrl">
+        <div>
+          <q-img :src="imageUploadedUrl" class="postifyImagePreview" />
+        </div>
+        <span class="text-grey-9">{{ imageUploadedName }}</span>
+      </div>
+
       <q-card-actions align="right">
         <input
-          ref="files"
+          ref="file"
           type="file"
-          name="files"
-          id="files"
+          name="file"
+          id="file"
           hidden
-          @change="previewFiles"
-          multiple
+          @change="onFileChange"
+          accept="image/*"
         />
         <q-btn flat round color="grey" icon="image" @click="chooseFiles" />
         <q-btn flat round color="grey" icon="mood" />
@@ -82,7 +90,8 @@ export default {
   data() {
     return {
       newPostifyContent: null,
-      filesUpload: [],
+      imageUploadedUrl: null,
+      imageUploadedName: null,
       postifies: [
         {
           content:
@@ -101,26 +110,44 @@ export default {
     addNewPostify() {
       let newPostify = {
         content: this.newPostifyContent,
-        images: this.filesUpload,
+        imageUrl: this.imageUploadedUrl,
         date: Date.now(),
       };
 
       this.postifies.unshift(newPostify);
+
+      this.$notify({
+        type: "success",
+        title: "Postify",
+        text: "Postify posted successfuly",
+      });
+
       this.newPostifyContent = null;
+      this.imageUploadedUrl = null;
+      this.imageUploadedName = null;
     },
     deletePostify(postify) {
       let dataToDelete = postify.date;
       let index = this.postifies.findIndex(
         (postify) => postify.date === dataToDelete
       );
+
       this.postifies.splice(index, 1);
+
+      this.$notify({
+        type: "success",
+        title: "Postify",
+        text: "Postify deleted successfuly",
+      });
     },
     chooseFiles() {
-      let fileInputElement = this.$refs.files;
+      let fileInputElement = this.$refs.file;
       fileInputElement.click();
     },
-    previewFiles() {
-      this.filesUpload = this.$refs.files.files;
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.imageUploadedName = file.name;
+      this.imageUploadedUrl = URL.createObjectURL(file);
     },
   },
 };
@@ -141,4 +168,7 @@ export default {
   margin-left: -5px
 .postify:not(:first-child)
   border-top: 1px solid rgba(0, 0, 0, 0.12)
+.postifyImagePreview
+  max-width: 100px
+  max-height: 100px
 </style>
