@@ -1,6 +1,6 @@
 <template>
-  <div class="loginContainer">
-    <div class="q-pa-md q-mt-xl loginForm shadow-1">
+  <div class="registerContainer">
+    <div class="q-pa-md q-mt-xl registerForm">
       <span
         class="text-weight-bold flex justify-center items-center q-pa-lg text-h4"
         >Register</span
@@ -74,23 +74,23 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log(this.email, this.password);
+    onSubmit(e) {
+      e.preventDefault();
+      console.log(this.username, this.email, this.password);
     },
   },
 };
 </script>
 
 <style lang='sass' scoped>
-.loginContainer
+.registerContainer
   display: flex
   justify-content: center
   align-items: center
   width: 100%
   height: 100%
-.loginForm
+.registerForm
   width: 500px
   height: auto
-  margin-top: 200px
   padding-top: 25px
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="loginContainer">
-    <div class="q-pa-md q-mt-xl loginForm shadow-1">
+    <div class="q-pa-md q-mt-xl loginForm">
       <span
         class="text-weight-bold flex justify-center items-center q-pa-lg text-h4"
         >Login</span
@@ -61,8 +61,9 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log(this.email, this.password);
+    onSubmit(e) {
+      e.preventDefault();
+      console.log(this.username, this.password);
     },
   },
 };
@@ -78,6 +79,5 @@ export default {
 .loginForm
   width: 500px
   height: auto
-  margin-top: 200px
   padding-top: 25px
 </style>
