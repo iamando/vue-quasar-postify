@@ -7,7 +7,6 @@
             <q-input
               outlined
               placeholder="Firstname"
-              lazy-rules
               v-model="informationContact.firstName"
             />
           </div>
@@ -15,7 +14,6 @@
             <q-input
               outlined
               placeholder="Lastname"
-              lazy-rules
               v-model="informationContact.lastName"
             />
           </div>
@@ -25,8 +23,8 @@
           <div class="col q-mx-md">
             <q-input
               outlined
+              type="email"
               placeholder="Email"
-              lazy-rules
               v-model="informationContact.email"
             />
           </div>
@@ -38,7 +36,6 @@
               outlined
               type="textarea"
               placeholder="Message"
-              lazy-rules
               v-model="informationContact.message"
             />
           </div>
@@ -51,10 +48,10 @@
               type="submit"
               color="primary full-width q-py-sm"
               :disable="
-                !informationContact.firstName &&
-                !informationContact.lastName &&
-                !informationContact.email &&
-                !informationContact.message
+                !informationContact.message ||
+                !informationContact.email ||
+                !informationContact.firstName ||
+                !informationContact.lastName
               "
             />
           </div>
