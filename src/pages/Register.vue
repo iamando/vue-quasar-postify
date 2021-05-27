@@ -54,7 +54,7 @@
         </div>
       </q-form>
       <span class="flex justify-center items-center q-py-md"
-        >Already have account?
+        >Already have an account?
         <router-link to="/login" class="q-ml-sm text-primary"
           >here</router-link
         ></span

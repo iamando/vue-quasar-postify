@@ -42,7 +42,7 @@
         </div>
       </q-form>
       <span class="flex justify-center items-center q-py-md"
-        >Don't have account?
+        >Don't have an account?
         <router-link to="/register" class="q-ml-sm text-primary"
           >here</router-link
         ></span
