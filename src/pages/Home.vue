@@ -100,9 +100,16 @@ export default {
   },
   methods: {
     addNewPostify() {
+      // Create postify
       this.$store.dispatch("postify/postPostify", {
         content: this.newPostifyContent,
         imageUrl: this.imageUploadedUrl,
+      });
+
+      // Create notification
+      this.$store.dispatch("notification/addNotification", {
+        title: "Postify",
+        content: "Postify posted successfuly",
       });
 
       this.$notify({

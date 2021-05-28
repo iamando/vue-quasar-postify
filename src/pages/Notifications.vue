@@ -3,21 +3,19 @@
     <q-scroll-area class="absolute full-width full-height">
       <div class="q-pa-md q-gutter-md">
         <q-list class="rounded-borders">
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
-          <NotificationCard class="notifCard" />
+          <transition-group
+            appear
+            enter-active-class="animated fadeIn slow"
+            leave-active-class="animated fadeOut slow"
+          >
+            <NotificationCard
+              v-for="notification in notifications"
+              :key="notification.date"
+              :notification="notification"
+              class="notifCard"
+              :deleteNotification="deleteNotification"
+            />
+          </transition-group>
         </q-list>
       </div>
     </q-scroll-area>
@@ -32,6 +30,25 @@ export default {
   name: "Notifications",
   components: {
     NotificationCard,
+  },
+  data() {
+    return {
+      notifications: this.$store.state.notification.notifications,
+    };
+  },
+  mounted() {
+    this.$store.dispatch("notification/getNotifications");
+  },
+  methods: {
+    deleteNotification(notification) {
+      this.$store.dispatch("notification/deleteNotification", notification);
+
+      this.$notify({
+        type: "success",
+        title: "Notification",
+        text: "Notification deleted successfuly",
+      });
+    },
   },
 };
 </script>

@@ -10,18 +10,30 @@
 
     <q-item-section top>
       <q-item-label>
-        <span class="text-weight-bold">Notifications</span>
+        <span class="text-weight-bold"
+          >{{ notification.title }}
+          <span class="text-grey-7 q-ml-sm">
+            <br class="lt-md" />
+            &bull; {{ notification.date | relativeDate }}
+          </span></span
+        >
       </q-item-label>
       <q-item-label class="text-subtitle1">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat culpa
-        vero at sed nemo molestiae, ipsum voluptatibus dolorum magni modi
-        voluptate minus architecto rem qui mollitia! Id optio commodi officia.
+        {{ notification.content }}
       </q-item-label>
     </q-item-section>
 
     <q-item-section top side>
       <div class="text-grey-8 q-gutter-xs">
-        <q-btn class="gt-xs" size="12px" flat dense round icon="delete" />
+        <q-btn
+          @click="deleteNotification(notification)"
+          class="gt-xs"
+          size="12px"
+          flat
+          dense
+          round
+          icon="delete"
+        />
         <q-btn size="12px" flat dense round icon="more_vert" />
       </div>
     </q-item-section>
@@ -29,10 +41,15 @@
 </template>
 
 <script>
+import { formatDistance } from "date-fns";
+
 export default {
+  props: ["notification", "deleteNotification"],
   name: "NotificationCard",
+  filters: {
+    relativeDate(value) {
+      return formatDistance(value, new Date());
+    },
+  },
 };
 </script>
-
-<style>
-</style>
