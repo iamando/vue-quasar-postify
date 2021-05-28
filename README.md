@@ -1,1 +1,1 @@
-POSTIFY: social network with Vue , Quasar and Firebase 💬
+POSTIFY: social network with Vue, Vuex, Quasar and Firebase 💬
