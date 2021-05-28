@@ -3,6 +3,12 @@
     <q-scroll-area class="absolute full-width full-height">
       <div class="q-pa-md q-gutter-md">
         <q-list class="rounded-borders">
+          <div
+            v-if="notifications.length === 0"
+            class="text-weight-bold text-h5 text-center"
+          >
+            No Notifications
+          </div>
           <transition-group
             appear
             enter-active-class="animated fadeIn slow"

@@ -57,8 +57,42 @@
 
       <q-separator size="10px" color="grey-2" class="divider" />
 
+      <div class="q-pa-md flex column">
+        <div class="flex justify-start items-center">
+          <div class="text-weight-bold text-h5 q-pa-md">Explore</div>
+          <div>
+            <q-dialog v-model="exploreStoriesCardInput">
+              <ExploreStoriesCardInput />
+            </q-dialog>
+            <q-btn
+              @click="exploreStoriesCardInput = true"
+              flat
+              round
+              color="grey"
+              icon="add_a_photo"
+            />
+          </div>
+        </div>
+
+        <div class="exploreContainer" v-if="explores.length > 0">
+          <ExploreStoriesCard
+            v-for="explore in explores"
+            :key="explore.date"
+            :explore="explore"
+          />
+        </div>
+      </div>
+
+      <q-separator size="10px" color="grey-2" class="divider" />
+
       <div>
         <q-list separator>
+          <div
+            v-if="postifies.length === 0"
+            class="text-weight-bold text-h5 text-center q-mt-lg"
+          >
+            No Postifies
+          </div>
           <transition-group
             appear
             enter-active-class="animated fadeIn slow"
@@ -81,18 +115,24 @@
 
 <script>
 import PostifyCard from "../components/PostifyCard";
+import ExploreStoriesCard from "../components/ExploreStoriesCard";
+import ExploreStoriesCardInput from "../components/ExploreStoriesCardInput";
 
 export default {
   name: "Home",
   components: {
     PostifyCard,
+    ExploreStoriesCard,
+    ExploreStoriesCardInput,
   },
   data() {
     return {
       postifies: this.$store.state.postify.postifies,
-      newPostifyContent: this.$store.state.postify.newPostifyContent,
-      imageUploadedUrl: this.$store.state.postify.imageUploadedUrl,
-      imageUploadedName: this.$store.state.postify.imageUploadedName,
+      explores: this.$store.state.explore.explores,
+      newPostifyContent: null,
+      imageUploadedUrl: null,
+      imageUploadedName: null,
+      exploreStoriesCardInput: false,
     };
   },
   mounted() {
@@ -162,4 +202,11 @@ export default {
 .postifyImagePreview
   max-width: 100px
   max-height: 100px
+.exploreContainer
+  width: 100%
+  height: 200px
+  overflow: auto
+  white-space: nowrap
+.exploreContainer a
+  display: inline-block
 </style>
