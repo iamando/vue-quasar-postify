@@ -31,8 +31,14 @@
         </q-item-section>
 
         <q-item-section class="text-subtitle1 text-weight-bold"
-          >Notifications</q-item-section
-        >
+          >Notifications
+        </q-item-section>
+        <q-badge
+          v-if="notifications.length > 0"
+          color="green"
+          v-bind:label="notifCount"
+          class="badgePostify"
+        />
       </q-item>
       <q-item to="/profile" clickable v-ripple exact>
         <q-item-section avatar>
@@ -79,8 +85,37 @@
 export default {
   props: ["left"],
   name: "LeftDrawer",
+  data() {
+    return {
+      notifications: this.$store.state.notification.notifications,
+      notifCount: null,
+    };
+  },
+  mounted() {
+    this.$store.dispatch("notification/getNotifications");
+    this.notifCounter();
+  },
+  updated() {
+    this.notifCounter();
+  },
+  methods: {
+    notifCounter() {
+      this.notifCount = Number(this.notifications.length);
+    },
+  },
 };
 </script>
 
-<style>
+<style lang='sass' scoped>
+.badgePostify
+  width: 30px
+  height: 30px
+  display: flex
+  justify-content: center
+  align-items: center
+  border-radius: 50%
+  font-weight: bold
+  font-size: 16px
+  text-align: center
+  padding-top: 0px !important
 </style>
