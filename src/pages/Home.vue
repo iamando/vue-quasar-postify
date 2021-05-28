@@ -89,32 +89,21 @@ export default {
   },
   data() {
     return {
-      newPostifyContent: null,
-      imageUploadedUrl: null,
-      imageUploadedName: null,
-      postifies: [
-        {
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Consequatur ipsum aut, soluta sed beatae quidem? Enim, excepturiveniam architecto delectus magnam et maiores vitae explicabo repellat quia impedit. Enim, eos.",
-          date: 1622021212359,
-        },
-        {
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Consequatur ipsum aut, soluta sed beatae quidem? Enim, excepturiveniam architecto delectus magnam et maiores vitae explicabo repellat quia impedit. Enim, eos.",
-          date: 1622021329961,
-        },
-      ],
+      postifies: this.$store.state.postify.postifies,
+      newPostifyContent: this.$store.state.postify.newPostifyContent,
+      imageUploadedUrl: this.$store.state.postify.imageUploadedUrl,
+      imageUploadedName: this.$store.state.postify.imageUploadedName,
     };
+  },
+  mounted() {
+    this.$store.dispatch("postify/getPostifies");
   },
   methods: {
     addNewPostify() {
-      let newPostify = {
+      this.$store.dispatch("postify/postPostify", {
         content: this.newPostifyContent,
         imageUrl: this.imageUploadedUrl,
-        date: Date.now(),
-      };
-
-      this.postifies.unshift(newPostify);
+      });
 
       this.$notify({
         type: "success",
@@ -127,12 +116,7 @@ export default {
       this.imageUploadedName = null;
     },
     deletePostify(postify) {
-      let dataToDelete = postify.date;
-      let index = this.postifies.findIndex(
-        (postify) => postify.date === dataToDelete
-      );
-
-      this.postifies.splice(index, 1);
+      this.$store.dispatch("postify/deletePostify", postify);
 
       this.$notify({
         type: "success",
