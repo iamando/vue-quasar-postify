@@ -29,7 +29,7 @@
       </q-toolbar>
     </q-header>
 
-    <LeftDrawer :left="left" />
+    <LeftDrawer />
     <RightDrawer />
 
     <q-page-container>

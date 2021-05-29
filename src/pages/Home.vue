@@ -207,6 +207,6 @@ export default {
   height: 200px
   overflow: auto
   white-space: nowrap
-.exploreContainer a
+.exploreContainer span
   display: inline-block
 </style>
