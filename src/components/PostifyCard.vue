@@ -22,7 +22,14 @@
           {{ postify.content }}
         </q-item-label>
         <div class="post-icons row justify-between q-mt-sm">
-          <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
+          <q-btn
+            @click="toggleLiked(postify)"
+            :color="postify.liked ? 'pink' : 'grey'"
+            :icon="postify.liked ? 'fas fa-heart' : 'far fa-heart'"
+            size="sm"
+            flat
+            round
+          />
           <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
           <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
           <q-btn
@@ -48,6 +55,11 @@ export default {
   filters: {
     relativeDate(value) {
       return formatDistance(value, new Date());
+    },
+  },
+  methods: {
+    toggleLiked(postify) {
+      this.$store.dispatch("postify/toggleLiked", postify);
     },
   },
 };

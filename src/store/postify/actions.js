@@ -9,3 +9,7 @@ export function postPostify(context, payload) {
 export function deletePostify(context, payload) {
   context.commit("deletePostify", payload);
 }
+
+export function toggleLiked(context, payload) {
+  context.commit("toggleLiked", payload);
+}

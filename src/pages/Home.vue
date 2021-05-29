@@ -100,7 +100,7 @@
           >
             <PostifyCard
               v-for="postify in postifies"
-              :key="postify.date"
+              :key="postify.id"
               :postify="postify"
               class="postify q-py-md"
               :deletePostify="deletePostify"
