@@ -20,11 +20,14 @@
             class="q-pa-md lt-md header-icon"
           />
         </q-toolbar-title>
-        <div class="gt-md flex items-center">
-          <span class="text-weight-bold q-px-sm text-primary"
-            >Stay Safe with COVID 19</span
-          >
-          <q-icon name="coronavirus" size="sm" color="primary" class="gt-md" />
+        <div class="flex items-center">
+          <q-icon
+            name="logout"
+            size="sm"
+            color="primary"
+            class="cursor-pointer"
+            @click="logout"
+          />
         </div>
       </q-toolbar>
     </q-header>
@@ -52,6 +55,11 @@ export default {
       left: false,
     };
   },
+  methods: {
+    logout() {
+      this.$store.dispatch("user/logout");
+    },
+  },
 };
 </script>
 
@@ -59,6 +67,6 @@ export default {
 .header-icon
   position: absolute
   bottom: 0
-  left: 100%
-  transform: translateX(-100%)
+  left: 15%
+  transform: translateX(-15%)
 </style>

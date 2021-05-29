@@ -1,4 +1,5 @@
 import { db } from "src/boot/firebase";
+import Vue from "vue";
 
 export function getPostifies(state) {
   db.collection("postifies")
@@ -41,6 +42,11 @@ export function postPostify(state, payload) {
     .add(newPostify)
     .then(docRef => {
       console.log("Document written with ID: ", docRef.id);
+      Vue.notify({
+        type: "success",
+        title: "Postify",
+        text: "Postify posted successfuly"
+      });
     })
     .catch(error => {
       console.error("Error adding document: ", error);
@@ -53,6 +59,11 @@ export function deletePostify(state, payload) {
     .delete()
     .then(() => {
       console.log("Document deleted");
+      Vue.notify({
+        type: "success",
+        title: "Postify",
+        text: "Postify deleted successfuly"
+      });
     })
     .catch(error => {
       console.error("Error deleting document: ", error);

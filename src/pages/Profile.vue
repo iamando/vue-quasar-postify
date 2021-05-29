@@ -1,7 +1,7 @@
 <template>
   <q-page class="relative-position">
     <q-scroll-area class="absolute full-width full-height">
-      <div class="row flex wrap column">
+      <div class="row flex wrap column q-pt-xl">
         <div class="col flex justify-center items-center">
           <q-avatar size="200px">
             <img src="https://dummyimage.com/150x150" />
@@ -20,21 +20,8 @@
                 Name: John Doe
               </q-card-section>
               <q-card-section class="q-pt-none">
-                Email: john@doe.com
+                Email: {{ userInfo.email }}
               </q-card-section>
-            </div>
-
-            <q-separator inset color="primary" />
-
-            <div class="flex justify-center q-my-md">
-              <q-btn
-                @click="logoutUser"
-                outline
-                rounded
-                color="negative"
-                label="Log Out"
-                class="q-py-sm q-px-sm"
-              />
             </div>
           </q-card>
         </div>
@@ -46,14 +33,14 @@
 <script>
 export default {
   name: "Accounts",
-  methods: {
-    logoutUser() {
-      this.$notify({
-        type: "success",
-        title: "Logout",
-        text: "Your account are disconnected successfully",
-      });
-    },
+  data() {
+    return {
+      userInfo: this.$store.state.user.userInfo,
+    };
+  },
+  mounted() {
+    // this.$store.dispatch("user/getUser");
+    console.log(this.userInfo);
   },
 };
 </script>

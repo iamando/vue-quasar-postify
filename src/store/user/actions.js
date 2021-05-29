@@ -1,3 +1,7 @@
+export function getUser(context) {
+  context.commit("getUser");
+}
+
 export function login(context, payload) {
   context.commit("login", payload);
 }

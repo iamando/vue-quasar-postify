@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Notifications from "vue-notification";
 
 import { auth } from "src/boot/firebase";
+import Cookie from "js-cookie";
 
 import routes from "./routes";
 
@@ -18,12 +19,13 @@ export default function(/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   });
 
+  const userInfo = Cookie.get("userInfo");
+
   Router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.authRequired)) {
-      if (auth.currentUser) {
+      if (userInfo != null) {
         next();
       } else {
-        alert("You must be logged in to see this page");
         next({
           path: "/login"
         });

@@ -129,6 +129,7 @@ export default {
     return {
       postifies: this.$store.state.postify.postifies,
       explores: this.$store.state.explore.explores,
+      userInfo: this.$store.state.user.userInfo,
       newPostifyContent: null,
       imageUploadedUrl: null,
       imageUploadedName: null,
@@ -136,9 +137,12 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("postify/getPostifies");
+    this.getPostifies();
   },
   methods: {
+    getPostifies() {
+      this.$store.dispatch("postify/getPostifies");
+    },
     addNewPostify() {
       // Create postify
       this.$store.dispatch("postify/postPostify", {
@@ -152,24 +156,12 @@ export default {
         content: "Postify posted successfuly",
       });
 
-      this.$notify({
-        type: "success",
-        title: "Postify",
-        text: "Postify posted successfuly",
-      });
-
       this.newPostifyContent = null;
       this.imageUploadedUrl = null;
       this.imageUploadedName = null;
     },
     deletePostify(postify) {
       this.$store.dispatch("postify/deletePostify", postify);
-
-      this.$notify({
-        type: "success",
-        title: "Postify",
-        text: "Postify deleted successfuly",
-      });
     },
     chooseFiles() {
       let fileInputElement = this.$refs.file;

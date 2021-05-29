@@ -66,12 +66,6 @@ export default {
         email: this.email,
         password: this.password,
       });
-
-      this.$notify({
-        type: "success",
-        title: "Login",
-        text: "Successfully logged in.",
-      });
     },
   },
 };

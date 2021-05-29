@@ -1,5 +1,7 @@
+import Cookie from "js-cookie";
+
 export default function() {
   return {
-    user: {}
+    userInfo: Cookie.get("userInfo")
   };
 }

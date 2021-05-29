@@ -16,7 +16,7 @@
           >
             <NotificationCard
               v-for="notification in notifications"
-              :key="notification.date"
+              :key="notification.id"
               :notification="notification"
               class="notifCard"
               :deleteNotification="deleteNotification"
@@ -48,12 +48,6 @@ export default {
   methods: {
     deleteNotification(notification) {
       this.$store.dispatch("notification/deleteNotification", notification);
-
-      this.$notify({
-        type: "success",
-        title: "Notification",
-        text: "Notification deleted successfuly",
-      });
     },
   },
 };
