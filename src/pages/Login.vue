@@ -5,7 +5,7 @@
         class="text-weight-bold flex justify-center items-center q-pa-lg text-h4"
         >Login</span
       >
-      <q-form class="q-gutter-md" @submit="onSubmit">
+      <q-form class="q-gutter-md" @submit.prevent="onSubmit">
         <div class="row justify-between">
           <div class="col q-mx-md">
             <q-input
@@ -13,7 +13,7 @@
               type="text"
               placeholder="Username"
               autocomplete="new-username"
-              v-model="username"
+              v-model="email"
             />
           </div>
         </div>
@@ -36,7 +36,7 @@
               label="Login"
               type="submit"
               color="primary full-width q-py-sm"
-              :disable="!username || !password"
+              :disable="!email || !password"
             />
           </div>
         </div>
@@ -56,14 +56,22 @@ export default {
   name: "Login",
   data() {
     return {
-      username: null,
+      email: null,
       password: null,
     };
   },
   methods: {
-    onSubmit(e) {
-      e.preventDefault();
-      console.log(this.username, this.password);
+    onSubmit() {
+      this.$store.dispatch("user/login", {
+        email: this.email,
+        password: this.password,
+      });
+
+      this.$notify({
+        type: "success",
+        title: "Login",
+        text: "Successfully logged in.",
+      });
     },
   },
 };

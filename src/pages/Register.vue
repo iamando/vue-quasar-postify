@@ -5,19 +5,7 @@
         class="text-weight-bold flex justify-center items-center q-pa-lg text-h4"
         >Register</span
       >
-      <q-form class="q-gutter-md" @submit="onSubmit" autocomplete="off">
-        <div class="row justify-between">
-          <div class="col q-mx-md">
-            <q-input
-              outlined
-              type="text"
-              placeholder="Username"
-              autocomplete="new-username"
-              v-model="username"
-            />
-          </div>
-        </div>
-
+      <q-form class="q-gutter-md" @submit.prevent="onSubmit" autocomplete="off">
         <div class="row justify-between">
           <div class="col q-mx-md">
             <q-input
@@ -68,15 +56,22 @@ export default {
   name: "Login",
   data() {
     return {
-      username: null,
       email: null,
       password: null,
     };
   },
   methods: {
-    onSubmit(e) {
-      e.preventDefault();
-      console.log(this.username, this.email, this.password);
+    onSubmit() {
+      this.$store.dispatch("user/register", {
+        email: this.email,
+        password: this.password,
+      });
+
+      this.$notify({
+        type: "success",
+        title: "Registration",
+        text: "Successfully registered! Please login.",
+      });
     },
   },
 };

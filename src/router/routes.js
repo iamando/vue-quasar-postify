@@ -3,36 +3,61 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/Home.vue"), name: "Home" },
+      {
+        path: "",
+        component: () => import("pages/Home.vue"),
+        name: "Home",
+        meta: {
+          authRequired: true
+        }
+      },
       {
         path: "/explore",
         component: () => import("pages/Explore.vue"),
-        name: "Explore"
+        name: "Explore",
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: "/notifications",
         component: () => import("pages/Notifications.vue"),
-        name: "Notifications"
+        name: "Notifications",
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: "/about",
         component: () => import("pages/About.vue"),
-        name: "About"
+        name: "About",
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: "/contact",
         component: () => import("pages/Contact.vue"),
-        name: "Contact"
+        name: "Contact",
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: "/profile",
         component: () => import("pages/Profile.vue"),
-        name: "Profile"
+        name: "Profile",
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: "/support",
         component: () => import("pages/Support.vue"),
-        name: "Support"
+        name: "Support",
+        meta: {
+          authRequired: true
+        }
       }
     ]
   },
