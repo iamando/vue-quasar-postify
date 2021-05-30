@@ -40,6 +40,12 @@
         <span class="text-grey-9">{{ imageUploadedName }}</span>
       </div>
 
+      <div>
+        <q-dialog v-model="exploreEventCardInput">
+          <EventInput />
+        </q-dialog>
+      </div>
+
       <q-card-actions align="right">
         <input
           ref="file"
@@ -52,7 +58,13 @@
         />
         <q-btn flat round color="grey" icon="image" @click="chooseFiles" />
         <q-btn flat round color="grey" icon="mood" />
-        <q-btn flat round color="grey" icon="event" />
+        <q-btn
+          flat
+          round
+          color="grey"
+          icon="event"
+          @click="exploreEventCardInput = true"
+        />
       </q-card-actions>
 
       <q-separator size="10px" color="grey-2" class="divider" />
@@ -140,6 +152,7 @@
 import PostifyCard from "../components/PostifyCard";
 import ExploreStoriesCard from "../components/ExploreStoriesCard";
 import ExploreStoriesCardInput from "../components/ExploreStoriesCardInput";
+import EventInput from "../components/EventInput";
 import { db, storage } from "src/boot/firebase";
 
 export default {
@@ -148,6 +161,7 @@ export default {
     PostifyCard,
     ExploreStoriesCard,
     ExploreStoriesCardInput,
+    EventInput,
   },
   data() {
     return {
@@ -158,6 +172,7 @@ export default {
       imageUploadedUrl: null,
       imageUploadedName: null,
       exploreStoriesCardInput: false,
+      exploreEventCardInput: false,
     };
   },
   created() {
