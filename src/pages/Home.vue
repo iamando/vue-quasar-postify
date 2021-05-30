@@ -117,6 +117,7 @@
 import PostifyCard from "../components/PostifyCard";
 import ExploreStoriesCard from "../components/ExploreStoriesCard";
 import ExploreStoriesCardInput from "../components/ExploreStoriesCardInput";
+import { db, storage } from "src/boot/firebase";
 
 export default {
   name: "Home",
@@ -129,26 +130,41 @@ export default {
     return {
       postifies: this.$store.state.postify.postifies,
       explores: this.$store.state.explore.explores,
-      userInfo: this.$store.state.user.userInfo,
       newPostifyContent: null,
+      imageUploadedData: null,
       imageUploadedUrl: null,
       imageUploadedName: null,
       exploreStoriesCardInput: false,
     };
   },
-  mounted() {
-    this.getPostifies();
+  created() {
+    if (this.postifies.length == 0) {
+      this.getPostifies();
+    }
   },
   methods: {
     getPostifies() {
       this.$store.dispatch("postify/getPostifies");
     },
     addNewPostify() {
-      // Create postify
-      this.$store.dispatch("postify/postPostify", {
-        content: this.newPostifyContent,
-        imageUrl: this.imageUploadedUrl,
-      });
+      // Add to storage
+      if (this.imageUploadedData) {
+        const storageRef = storage
+          .ref(`postifies/${this.imageUploadedName}`)
+          .put(this.imageUploadedData)
+          .then((snapshot) => {
+            snapshot.ref.getDownloadURL().then((url) => {
+              console.log("Uploaded a blob or file!", url);
+
+              // Create postify
+              this.$store.dispatch("postify/postPostify", {
+                content: this.newPostifyContent,
+                imageUrl: url,
+                imageName: this.imageUploadedName,
+              });
+            });
+          });
+      }
 
       // Create notification
       this.$store.dispatch("notification/addNotification", {
@@ -159,6 +175,7 @@ export default {
       this.newPostifyContent = null;
       this.imageUploadedUrl = null;
       this.imageUploadedName = null;
+      this.imageUploadedData = null;
     },
     deletePostify(postify) {
       this.$store.dispatch("postify/deletePostify", postify);
@@ -169,6 +186,7 @@ export default {
     },
     onFileChange(e) {
       const file = e.target.files[0];
+      this.imageUploadedData = file;
       this.imageUploadedName = file.name;
       this.imageUploadedUrl = URL.createObjectURL(file);
     },

@@ -1,4 +1,4 @@
-import { db } from "src/boot/firebase";
+import { db, storage } from "src/boot/firebase";
 import Vue from "vue";
 
 export function getPostifies(state) {
@@ -34,6 +34,7 @@ export function postPostify(state, payload) {
   let newPostify = {
     content: payload.content,
     imageUrl: payload.imageUrl,
+    imageName: payload.imageName,
     liked: false,
     date: Date.now()
   };

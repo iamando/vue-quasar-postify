@@ -43,7 +43,9 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("notification/getNotifications");
+    if (this.notifications.length == 0) {
+      this.getNotifications();
+    }
   },
   methods: {
     deleteNotification(notification) {

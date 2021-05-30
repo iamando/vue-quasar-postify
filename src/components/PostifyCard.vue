@@ -18,7 +18,10 @@
         <div v-if="postify.imageUrl">
           <q-img :src="postify.imageUrl" class="postifyImage" />
         </div>
-        <q-item-label class="post-content text-subtitle1 q-py-md">
+        <q-item-label
+          class="post-content text-subtitle1 q-py-md"
+          v-if="postify.content"
+        >
           {{ postify.content }}
         </q-item-label>
         <div class="post-icons row justify-between q-mt-sm">

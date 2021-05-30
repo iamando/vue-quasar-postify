@@ -9,3 +9,7 @@ export function shareExplore(context, payload) {
 export function deleteExplore(context, payload) {
   context.commit("deleteExplore", payload);
 }
+
+export function toggleLiked(state, payload) {
+  context.commit("toggleLiked", payload);
+}
