@@ -40,6 +40,21 @@
           class="badgePostify"
         />
       </q-item>
+      <q-item to="/chats" clickable v-ripple exact>
+        <q-item-section avatar>
+          <q-icon name="chat_bubble_outline" size="md" />
+        </q-item-section>
+
+        <q-item-section class="text-subtitle1 text-weight-bold"
+          >Chats
+        </q-item-section>
+        <!-- <q-badge
+          v-if="notifications.length > 0"
+          color="green"
+          v-bind:label="notifCount"
+          class="badgePostify"
+        /> -->
+      </q-item>
       <q-item to="/profile" clickable v-ripple exact>
         <q-item-section avatar>
           <q-icon name="person_outline" size="md" />

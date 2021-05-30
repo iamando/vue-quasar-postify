@@ -28,6 +28,14 @@ const routes = [
         }
       },
       {
+        path: "/chats",
+        component: () => import("pages/Chats.vue"),
+        name: "Chats",
+        meta: {
+          authRequired: true
+        }
+      },
+      {
         path: "/about",
         component: () => import("pages/About.vue"),
         name: "About",
