@@ -1,7 +1,7 @@
 <template>
   <q-page class="relative-position">
     <q-scroll-area class="absolute full-width full-height">
-      <div class="q-pa-md q-mt-xl">
+      <div class="q-pa-md q-mt-sm">
         <div class="q-pa-md text-h4 text-weight-bold text-center">
           Modify Your Profile
         </div>
