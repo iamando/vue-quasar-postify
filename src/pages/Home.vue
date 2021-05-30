@@ -157,15 +157,22 @@ export default {
             snapshot.ref.getDownloadURL().then((url) => {
               console.log("Uploaded a blob or file!", url);
 
-              // Create postify
+              // Get image URL from Firebase Storage
               this.$store.dispatch("postify/postPostify", {
-                content: this.newPostifyContent,
                 imageUrl: url,
                 imageName: this.imageUploadedName,
+                content: this.newPostifyContent,
               });
+
+              this.resetAll();
             });
           });
+        return;
       }
+
+      this.$store.dispatch("postify/postPostify", {
+        content: this.newPostifyContent,
+      });
 
       // Create notification
       this.$store.dispatch("notification/addNotification", {
@@ -173,10 +180,7 @@ export default {
         content: "Postify posted successfuly",
       });
 
-      this.newPostifyContent = null;
-      this.imageUploadedUrl = null;
-      this.imageUploadedName = null;
-      this.imageUploadedData = null;
+      this.resetAll();
     },
     deletePostify(postify) {
       this.$store.dispatch("postify/deletePostify", postify);
@@ -190,6 +194,12 @@ export default {
       this.imageUploadedData = file;
       this.imageUploadedName = file.name;
       this.imageUploadedUrl = URL.createObjectURL(file);
+    },
+    resetAll() {
+      this.newPostifyContent = null;
+      this.imageUploadedUrl = null;
+      this.imageUploadedName = null;
+      this.imageUploadedData = null;
     },
   },
 };

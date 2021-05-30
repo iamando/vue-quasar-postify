@@ -1,7 +1,7 @@
 <template>
   <div>
-    <q-card class="my-card q-my-md" flat bordered>
-      <q-img :src="explore.imageUrl" />
+    <q-card class="explore-card q-my-md" flat bordered>
+      <q-img class="explore-img" :src="explore.imageUrl" />
 
       <q-card-section>
         <div class="text-orange-9 text-weight-bold text-subtitle1">
@@ -45,7 +45,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 350px
+.explore-card
+  width: 325px
+  max-width: 325px
+.explore-img
+  height: 325px
 </style>

@@ -10,6 +10,6 @@ export function deleteExplore(context, payload) {
   context.commit("deleteExplore", payload);
 }
 
-export function toggleLiked(state, payload) {
+export function toggleLiked(context, payload) {
   context.commit("toggleLiked", payload);
 }

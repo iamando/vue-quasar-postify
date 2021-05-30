@@ -21,7 +21,14 @@
     </q-card-section>
 
     <q-card-actions align="left">
-      <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
+      <q-btn
+        @click="toggleLiked(explore)"
+        :color="explore.liked ? 'pink' : 'grey'"
+        :icon="explore.liked ? 'fas fa-heart' : 'far fa-heart'"
+        size="sm"
+        flat
+        round
+      />
       <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
       <q-btn
         color="grey"
@@ -49,6 +56,9 @@ export default {
   methods: {
     deleteExplore() {
       this.$store.dispatch("explore/deleteExplore", this.explore);
+    },
+    toggleLiked(explore) {
+      this.$store.dispatch("explore/toggleLiked", explore);
     },
   },
 };

@@ -32,16 +32,17 @@ export function getExplores(state) {
 
 export function shareExplore(state, payload) {
   let newExplore = {
-    tag: payload.tag,
-    content: payload.content,
-    imageUrl: payload.imageUrl,
+    tag: payload.tag || null,
+    content: payload.content || null,
+    imageUrl: payload.imageUrl || null,
+    liked: false,
     date: Date.now()
   };
 
   db.collection("explores")
     .add(newExplore)
     .then(docRef => {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Explore written with ID: ", docRef.id);
       Vue.notify({
         type: "success",
         title: "Explore",

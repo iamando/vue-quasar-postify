@@ -32,9 +32,9 @@ export function getPostifies(state) {
 
 export function postPostify(state, payload) {
   let newPostify = {
-    content: payload.content,
-    imageUrl: payload.imageUrl,
-    imageName: payload.imageName,
+    content: payload.content || null,
+    imageUrl: payload.imageUrl || null,
+    imageName: payload.imageName || null,
     liked: false,
     date: Date.now()
   };
@@ -42,7 +42,7 @@ export function postPostify(state, payload) {
   db.collection("postifies")
     .add(newPostify)
     .then(docRef => {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Postify written with ID: ", docRef.id);
       Vue.notify({
         type: "success",
         title: "Postify",

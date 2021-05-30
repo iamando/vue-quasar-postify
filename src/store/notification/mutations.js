@@ -25,15 +25,15 @@ export function getNotifications(state) {
 
 export function addNotification(state, payload) {
   let newNotif = {
-    title: payload.title,
-    content: payload.content,
+    title: payload.title || null,
+    content: payload.content || null,
     date: Date.now()
   };
 
   db.collection("notifications")
     .add(newNotif)
     .then(docRef => {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Notification written with ID: ", docRef.id);
     })
     .catch(error => {
       console.error("Error adding document: ", error);

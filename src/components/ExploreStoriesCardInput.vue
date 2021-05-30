@@ -100,14 +100,17 @@ export default {
             snapshot.ref.getDownloadURL().then((url) => {
               console.log("Uploaded a blob or file!", url);
 
-              // Share explore
+              // Get image URL from Firebase Storage
               this.$store.dispatch("explore/shareExplore", {
+                imageUrl: url,
                 tag: this.newExploreTag,
                 content: this.newExploreContent,
-                imageUrl: url,
               });
+
+              this.resetAll();
             });
           });
+        return;
       }
 
       // Create notification
@@ -116,10 +119,7 @@ export default {
         content: "Explore shared successfuly",
       });
 
-      this.newExploreTag = null;
-      this.newExploreContent = null;
-      this.imageExploreUploadedUrl = null;
-      this.imageExploreUploadedName = null;
+      this.resetAll();
     },
     chooseFiles() {
       let fileInputElement = this.$refs.file;
@@ -130,6 +130,12 @@ export default {
       this.imageExploreUploadedData = file;
       this.imageExploreUploadedName = file.name;
       this.imageExploreUploadedUrl = URL.createObjectURL(file);
+    },
+    resetAll() {
+      this.newExploreTag = null;
+      this.newExploreContent = null;
+      this.imageExploreUploadedUrl = null;
+      this.imageExploreUploadedName = null;
     },
   },
 };
