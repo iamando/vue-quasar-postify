@@ -9,3 +9,7 @@ export function addNotification(context, payload) {
 export function deleteNotification(context, payload) {
   context.commit("deleteNotification", payload);
 }
+
+export function clearNotifications(context) {
+  context.commit("clearNotifications");
+}

@@ -56,3 +56,18 @@ export function deleteNotification(state, payload) {
       console.error("Error deleting document: ", error);
     });
 }
+
+export function clearNotifications(state) {
+  const ref = db.collection("notifications");
+
+  db.collection("notifications").onSnapshot(snapshot => {
+    snapshot.docs.forEach(doc => {
+      ref
+        .doc(doc.id)
+        .delete()
+        .catch(error => {
+          console.log(error);
+        });
+    });
+  });
+}

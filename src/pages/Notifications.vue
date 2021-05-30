@@ -1,5 +1,18 @@
 <template>
   <q-page class="relative-position">
+    <div
+      class="flex justify-end q-py-md q-px-md"
+      v-if="notifications.length > 0"
+    >
+      <q-btn
+        outline
+        rounded
+        color="pink"
+        label="Clear"
+        @click="clearNotifications"
+      />
+    </div>
+    <q-separator />
     <q-scroll-area class="absolute full-width full-height">
       <div class="q-pa-md q-gutter-md">
         <q-list class="rounded-borders">
@@ -50,6 +63,9 @@ export default {
   methods: {
     deleteNotification(notification) {
       this.$store.dispatch("notification/deleteNotification", notification);
+    },
+    clearNotifications() {
+      this.$store.dispatch("notification/clearNotifications");
     },
   },
 };
