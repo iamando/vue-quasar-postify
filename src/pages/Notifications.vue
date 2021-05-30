@@ -42,7 +42,7 @@ export default {
       notifications: this.$store.state.notification.notifications,
     };
   },
-  mounted() {
+  created() {
     if (this.notifications.length == 0) {
       this.getNotifications();
     }

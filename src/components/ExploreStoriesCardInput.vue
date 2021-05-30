@@ -30,6 +30,7 @@
           <div v-if="!imageExploreUploadedUrl">
             <input
               ref="file"
+              required
               type="file"
               name="file"
               id="file"
@@ -75,6 +76,8 @@
 </template>
 
 <script>
+import { db, storage } from "src/boot/firebase";
+
 export default {
   name: "ExploreStoriesCardInput",
   data() {
@@ -83,27 +86,34 @@ export default {
       newExploreContent: null,
       imageExploreUploadedUrl: null,
       imageExploreUploadedName: null,
+      imageExploreUploadedData: null,
     };
   },
   methods: {
     shareExplore() {
-      // Share explore
-      this.$store.dispatch("explore/shareExplore", {
-        tag: this.newExploreTag,
-        content: this.newExploreContent,
-        imageUrl: this.imageExploreUploadedUrl,
-      });
+      // Add to storage
+      if (this.imageExploreUploadedData) {
+        const storageRef = storage
+          .ref(`explores/${this.imageExploreUploadedName}`)
+          .put(this.imageExploreUploadedData)
+          .then((snapshot) => {
+            snapshot.ref.getDownloadURL().then((url) => {
+              console.log("Uploaded a blob or file!", url);
+
+              // Share explore
+              this.$store.dispatch("explore/shareExplore", {
+                tag: this.newExploreTag,
+                content: this.newExploreContent,
+                imageUrl: url,
+              });
+            });
+          });
+      }
 
       // Create notification
       this.$store.dispatch("notification/addNotification", {
         title: "Explore",
         content: "Explore shared successfuly",
-      });
-
-      this.$notify({
-        type: "success",
-        title: "Explore",
-        text: "Explore shared successfuly",
       });
 
       this.newExploreTag = null;
@@ -117,6 +127,7 @@ export default {
     },
     onFileChange(e) {
       const file = e.target.files[0];
+      this.imageExploreUploadedData = file;
       this.imageExploreUploadedName = file.name;
       this.imageExploreUploadedUrl = URL.createObjectURL(file);
     },

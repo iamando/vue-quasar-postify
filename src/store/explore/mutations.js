@@ -45,7 +45,7 @@ export function shareExplore(state, payload) {
       Vue.notify({
         type: "success",
         title: "Explore",
-        text: "Explore posted successfuly"
+        text: "Explore shared successfuly"
       });
     })
     .catch(error => {

@@ -23,7 +23,14 @@
     <q-card-actions align="left">
       <q-btn color="grey" icon="far fa-heart" size="sm" flat round />
       <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
-      <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
+      <q-btn
+        color="grey"
+        icon="fas fa-trash"
+        size="sm"
+        flat
+        round
+        @click="deleteExplore"
+      />
     </q-card-actions>
   </q-card>
 </template>
@@ -37,6 +44,11 @@ export default {
   filters: {
     relativeDate(value) {
       return formatDistance(value, new Date());
+    },
+  },
+  methods: {
+    deleteExplore() {
+      this.$store.dispatch("explore/deleteExplore", this.explore);
     },
   },
 };

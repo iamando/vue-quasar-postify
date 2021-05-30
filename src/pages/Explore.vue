@@ -48,8 +48,10 @@ export default {
       explores: this.$store.state.explore.explores,
     };
   },
-  mounted() {
-    this.$store.dispatch("explore/getExplores");
+  created() {
+    if (this.explores.length == 0) {
+      this.$store.dispatch("explore/getExplores");
+    }
   },
 };
 </script>

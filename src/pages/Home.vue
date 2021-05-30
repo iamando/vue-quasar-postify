@@ -145,6 +145,7 @@ export default {
   methods: {
     getPostifies() {
       this.$store.dispatch("postify/getPostifies");
+      this.$store.dispatch("explore/getExplores");
     },
     addNewPostify() {
       // Add to storage
