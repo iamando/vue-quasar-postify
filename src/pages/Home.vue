@@ -74,13 +74,30 @@
           </div>
         </div>
 
-        <div class="exploreContainer" v-if="explores.length > 0">
-          <ExploreStoriesCard
-            v-for="explore in explores"
-            :key="explore.date"
-            :explore="explore"
-          />
-        </div>
+        <span>
+          <div
+            class="flex justify-center items-center"
+            v-if="explores.length == 0"
+          >
+            <q-circular-progress
+              indeterminate
+              size="75px"
+              :thickness="0.6"
+              color="primary"
+              center-color="grey-8"
+              class="q-ma-md"
+            />
+            <span>Loading Explore...</span>
+          </div>
+
+          <div class="exploreContainer" v-if="explores.length > 0">
+            <ExploreStoriesCard
+              v-for="explore in explores"
+              :key="explore.date"
+              :explore="explore"
+            />
+          </div>
+        </span>
       </div>
 
       <q-separator size="10px" color="grey-2" class="divider" />
@@ -88,10 +105,16 @@
       <div>
         <q-list separator>
           <div
-            v-if="postifies.length === 0"
-            class="text-weight-bold text-h5 text-center q-mt-lg"
+            v-if="postifies.length == 0"
+            class="flex justify-center items-center q-pt-xl"
           >
-            No Postifies
+            <q-circular-progress
+              indeterminate
+              size="50px"
+              color="primary"
+              class="q-ma-md"
+            />
+            <span>Loading Postify...</span>
           </div>
           <transition-group
             appear

@@ -22,7 +22,20 @@
     </div>
     <q-scroll-area class="absolute full-width full-height">
       <div
+        v-if="explores.length == 0"
+        class="flex justify-center items-center q-pt-xl"
+      >
+        <q-circular-progress
+          indeterminate
+          size="50px"
+          color="primary"
+          class="q-ma-md"
+        />
+        <span>Loading Explore...</span>
+      </div>
+      <div
         class="q-px-xs row justify-center items-center q-col-gutter-md column"
+        v-if="explores.length > 0"
       >
         <ExploreCard
           class="col"
