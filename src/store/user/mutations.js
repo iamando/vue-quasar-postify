@@ -15,8 +15,8 @@ export function login(state, payload) {
         title: "Login",
         text: "Successfully logged in."
       });
-      this.$router.push("/");
-      let user = auth.currentUser;
+      this.$router.push("/profile");
+      const user = auth.currentUser;
       Cookie.set("userInfo", JSON.stringify(user));
     })
     .catch(error => {
@@ -57,3 +57,5 @@ export function logout(state) {
       this.$router.push("/login");
     });
 }
+
+export function saveUserProfile(state, payload) {}

@@ -23,7 +23,7 @@ export default function(/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.authRequired)) {
-      if (userInfo != null) {
+      if (userInfo) {
         next();
       } else {
         next({
