@@ -44,7 +44,7 @@ export default {
   },
   created() {
     if (this.notifications.length == 0) {
-      this.getNotifications();
+      this.$store.dispatch("notification/getNotifications");
     }
   },
   methods: {

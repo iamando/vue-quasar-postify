@@ -139,14 +139,14 @@ export default {
   },
   created() {
     if (this.postifies.length == 0) {
-      this.getPostifies();
+      this.$store.dispatch("postify/getPostifies");
+    }
+
+    if (this.explores.length == 0) {
+      this.$store.dispatch("explore/getExplores");
     }
   },
   methods: {
-    getPostifies() {
-      this.$store.dispatch("postify/getPostifies");
-      this.$store.dispatch("explore/getExplores");
-    },
     addNewPostify() {
       // Add to storage
       if (this.imageUploadedData) {
