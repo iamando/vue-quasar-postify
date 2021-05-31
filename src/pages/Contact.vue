@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { db } from "src/boot/firebase";
+
 export default {
   name: "Contact",
   data() {
@@ -76,11 +78,27 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$notify({
-        type: "success",
-        title: "Successfull",
-        text: "Your message will be received immediatly",
-      });
+      let newContact = {
+        firstName: this.informationContact.firstName,
+        lastName: this.informationContact.lastName,
+        email: this.informationContact.email,
+        message: this.informationContact.message,
+        date: new Date().toUTCString(),
+      };
+
+      db.collection("contacts")
+        .add(newContact)
+        .then((docRef) => {
+          console.log("Contact written with ID: ", docRef.id);
+          this.$notify({
+            type: "success",
+            title: "Successfull",
+            text: "Your message will be received immediatly",
+          });
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
 
       this.onReset();
     },
