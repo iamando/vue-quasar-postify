@@ -1,4 +1,4 @@
-import { db } from "src/boot/firebase";
+import { db, auth } from "src/boot/firebase";
 import Vue from "vue";
 
 export function getExplores(state) {
@@ -32,6 +32,7 @@ export function getExplores(state) {
 
 export function shareExplore(state, payload) {
   let newExplore = {
+    userId: auth.currentUser.uid,
     tag: payload.tag || null,
     content: payload.content || null,
     imageUrl: payload.imageUrl || null,
