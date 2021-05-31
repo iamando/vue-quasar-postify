@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { auth } from "src/boot/firebase";
+import { auth, db, storage } from "src/boot/firebase";
 import Cookie from "js-cookie";
 
 export function getUser(state) {
@@ -15,9 +15,10 @@ export function login(state, payload) {
         title: "Login",
         text: "Successfully logged in."
       });
-      this.$router.push("/profile");
+      this.$router.push("/");
       const user = auth.currentUser;
-      Cookie.set("userInfo", JSON.stringify(user));
+      Cookie.set("__inf", JSON.stringify(user));
+      Cookie.set("__token", JSON.stringify(user.refreshToken));
     })
     .catch(error => {
       console.error(error);
@@ -58,4 +59,42 @@ export function logout(state) {
     });
 }
 
-export function saveUserProfile(state, payload) {}
+export function getUserProfile(state) {
+  db.collection("profiles")
+    .where("userId", "==", auth.currentUser.uid)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.id, " => ", doc.data());
+        Cookie.set("__prfl", JSON.stringify(doc.data()));
+      });
+    })
+    .catch(error => {
+      console.log("Error getting documents: ", error);
+    });
+}
+
+export function saveUserProfile(state, payload) {
+  let userProfile = {
+    userId: auth.currentUser.uid,
+    email: auth.currentUser.email,
+    username: payload.username,
+    firstName: payload.firstName,
+    lastName: payload.lastName,
+    userProfileImgUrl: payload.userProfileImgUrl
+  };
+
+  db.collection("profiles")
+    .add(userProfile)
+    .then(docRef => {
+      console.log("Profile written with ID: ", docRef.id);
+      Vue.notify({
+        type: "success",
+        title: "Profile",
+        text: "Profile saved successfuly"
+      });
+    })
+    .catch(error => {
+      console.error("Error adding document: ", error);
+    });
+}

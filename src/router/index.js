@@ -19,11 +19,11 @@ export default function(/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   });
 
-  const userInfo = Cookie.get("userInfo");
+  const __token = Cookie.getJSON("__token");
 
   Router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.authRequired)) {
-      if (userInfo) {
+      if (__token) {
         next();
       } else {
         next({

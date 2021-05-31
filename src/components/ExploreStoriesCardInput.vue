@@ -103,6 +103,7 @@ export default {
               // Get image URL from Firebase Storage
               this.$store.dispatch("explore/shareExplore", {
                 imageUrl: url,
+                imageName: this.imageExploreUploadedName,
                 tag: this.newExploreTag,
                 content: this.newExploreContent,
               });

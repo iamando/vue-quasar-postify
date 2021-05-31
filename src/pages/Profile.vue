@@ -8,10 +8,22 @@
         <q-form class="q-gutter-md" @submit.prevent="onSubmit">
           <div class="col column flex justify-center items-center q-py-lg">
             <div>
-              <q-avatar size="200px" v-if="userProfile.userProfileUploadedUrl">
-                <img :src="userProfile.userProfileUploadedUrl" />
+              <q-avatar size="200px" v-if="profile.userProfileImgUrl">
+                <img :src="profile.userProfileImgUrl" class="object-cover" />
               </q-avatar>
-              <q-avatar size="200px" v-if="!userProfile.userProfileUploadedUrl">
+              <q-avatar size="200px" v-if="userProfile.userProfileUploadedUrl">
+                <img
+                  :src="userProfile.userProfileUploadedUrl"
+                  class="object-cover"
+                />
+              </q-avatar>
+              <q-avatar
+                size="200px"
+                v-if="
+                  !userProfile.userProfileUploadedUrl &&
+                  !profile.userProfileImgUrl
+                "
+              >
                 <img src="https://dummyimage.com/150x150" />
               </q-avatar>
             </div>
@@ -25,14 +37,14 @@
             <div class="col q-mx-md">
               <q-input
                 outlined
-                placeholder="Firstname"
+                :placeholder="profile.firstName"
                 v-model="userProfile.userProfileFirstName"
               />
             </div>
             <div class="col q-mx-md">
               <q-input
                 outlined
-                placeholder="Lastname"
+                :placeholder="profile.lastName"
                 v-model="userProfile.userProfileLastName"
               />
             </div>
@@ -43,7 +55,7 @@
               <q-input
                 outlined
                 type="text"
-                placeholder="Username"
+                :placeholder="profile.username"
                 v-model="userProfile.userProfileUsername"
               />
             </div>
@@ -56,7 +68,7 @@
                 type="email"
                 placeholder="Email"
                 v-model="userProfile.userProfileEmail"
-                value="userInfo.email"
+                value="info.email"
                 disable
               />
             </div>
@@ -107,16 +119,19 @@
 </template>
 
 <script>
+import { storage } from "src/boot/firebase";
+
 export default {
   name: "Accounts",
   data() {
     return {
-      userInfo: this.$store.state.user.userInfo,
+      info: this.$store.state.user.info,
+      profile: this.$store.state.user.profile,
       userProfile: {
         userProfileFirstName: null,
         userProfileLastName: null,
         userProfileUsername: null,
-        userProfileEmail: this.$store.state.user.userInfo.email,
+        userProfileEmail: this.$store.state.user.info.email,
         userProfileUploadedUrl: null,
         userProfileUploadedName: null,
         userProfileUploadedData: null,
@@ -124,11 +139,40 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("user/getUser");
-    console.log(this.userInfo);
+    if (this.info) {
+      this.$store.dispatch("user/getUser");
+      console.log(this.info);
+    }
+
+    if (this.profile) {
+      this.$store.dispatch("user/getUserProfile");
+      console.log(this.profile.username);
+    }
   },
   methods: {
-    onSubmit() {},
+    onSubmit() {
+      // Add to storage
+      if (this.userProfile.userProfileUploadedData) {
+        const storageRef = storage
+          .ref(`profiles/${this.userProfile.userProfileUploadedName}`)
+          .put(this.userProfile.userProfileUploadedData)
+          .then((snapshot) => {
+            snapshot.ref.getDownloadURL().then((url) => {
+              console.log("Uploaded a blob or file!", url);
+
+              // Get image URL from Firebase Storage
+              this.$store.dispatch("user/saveUserProfile", {
+                userProfileImgUrl: url,
+                username: this.userProfile.userProfileUsername,
+                firstName: this.userProfile.userProfileFirstName,
+                lastName: this.userProfile.userProfileLastName,
+              });
+              this.resetAll();
+            });
+          });
+        return;
+      }
+    },
     chooseFiles() {
       let fileInputElement = this.$refs.file;
       fileInputElement.click();
@@ -138,6 +182,14 @@ export default {
       this.userProfile.userProfileUploadedData = file;
       this.userProfile.userProfileUploadedName = file.name;
       this.userProfile.userProfileUploadedUrl = URL.createObjectURL(file);
+    },
+    resetAll() {
+      this.userProfile.userProfileFirstName = null;
+      this.userProfile.userProfileLastName = null;
+      this.userProfile.userProfileUsername = null;
+      this.userProfile.userProfileUploadedUrl = null;
+      this.userProfile.userProfileUploadedName = null;
+      this.userProfile.userProfileUploadedData = null;
     },
   },
 };

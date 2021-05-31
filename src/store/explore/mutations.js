@@ -35,6 +35,7 @@ export function shareExplore(state, payload) {
     tag: payload.tag || null,
     content: payload.content || null,
     imageUrl: payload.imageUrl || null,
+    imageName: payload.imageName || null,
     liked: false,
     date: Date.now()
   };
@@ -59,6 +60,23 @@ export function deleteExplore(state, payload) {
     .doc(payload.id)
     .delete()
     .then(() => {
+      if (payload.imageUrl) {
+        const storageRef = storage.ref().child(`explores/${payload.imageName}`);
+        storageRef
+          .delete()
+          .then(() => {
+            console.log("Image and Document deleted");
+            Vue.notify({
+              type: "success",
+              title: "Explote",
+              text: "Explore deleted successfuly"
+            });
+          })
+          .catch(error => {
+            console.error("Error deleting storage", error);
+          });
+      }
+
       console.log("Document deleted");
       Vue.notify({
         type: "success",

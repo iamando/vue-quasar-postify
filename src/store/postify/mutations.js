@@ -59,12 +59,31 @@ export function deletePostify(state, payload) {
     .doc(payload.id)
     .delete()
     .then(() => {
-      console.log("Document deleted");
-      Vue.notify({
-        type: "success",
-        title: "Postify",
-        text: "Postify deleted successfuly"
-      });
+      if (payload.imageUrl) {
+        const storageRef = storage
+          .ref()
+          .child(`postifies/${payload.imageName}`);
+        storageRef
+          .delete()
+          .then(() => {
+            console.log("Image and Document deleted");
+            Vue.notify({
+              type: "success",
+              title: "Postify",
+              text: "Postify deleted successfuly"
+            });
+          })
+          .catch(error => {
+            console.error("Error deleting storage", error);
+          });
+      } else {
+        console.log("Document deleted");
+        Vue.notify({
+          type: "success",
+          title: "Postify",
+          text: "Postify deleted successfuly"
+        });
+      }
     })
     .catch(error => {
       console.error("Error deleting document: ", error);

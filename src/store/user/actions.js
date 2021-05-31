@@ -13,3 +13,11 @@ export function register(context, payload) {
 export function logout(context) {
   context.commit("logout");
 }
+
+export function getUserProfile(context) {
+  context.commit("getUserProfile");
+}
+
+export function saveUserProfile(context, payload) {
+  context.commit("saveUserProfile", payload);
+}
