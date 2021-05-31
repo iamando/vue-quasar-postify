@@ -33,6 +33,7 @@ export function getPostifies(state) {
 export function postPostify(state, payload) {
   let newPostify = {
     userId: auth.currentUser.uid,
+    username: payload.username,
     content: payload.content || null,
     imageUrl: payload.imageUrl || null,
     imageName: payload.imageName || null,

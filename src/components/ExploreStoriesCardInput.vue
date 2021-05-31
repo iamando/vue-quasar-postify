@@ -82,12 +82,19 @@ export default {
   name: "ExploreStoriesCardInput",
   data() {
     return {
+      profile: this.$store.state.explore.explores,
       newExploreTag: null,
       newExploreContent: null,
       imageExploreUploadedUrl: null,
       imageExploreUploadedName: null,
       imageExploreUploadedData: null,
     };
+  },
+  created() {
+    if (this.profile) {
+      this.$store.dispatch("user/getUserProfile");
+      console.log(this.profile.username);
+    }
   },
   methods: {
     shareExplore() {
@@ -104,6 +111,7 @@ export default {
               this.$store.dispatch("explore/shareExplore", {
                 imageUrl: url,
                 imageName: this.imageExploreUploadedName,
+                username: this.profile.username,
                 tag: this.newExploreTag,
                 content: this.newExploreContent,
               });

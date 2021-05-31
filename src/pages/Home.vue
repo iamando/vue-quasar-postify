@@ -167,6 +167,7 @@ export default {
     return {
       postifies: this.$store.state.postify.postifies,
       explores: this.$store.state.explore.explores,
+      profile: this.$store.state.user.profile,
       newPostifyContent: null,
       imageUploadedData: null,
       imageUploadedUrl: null,
@@ -182,6 +183,11 @@ export default {
 
     if (this.explores.length == 0) {
       this.$store.dispatch("explore/getExplores");
+    }
+
+    if (this.profile) {
+      this.$store.dispatch("user/getUserProfile");
+      console.log(this.profile.username);
     }
   },
   methods: {
@@ -199,6 +205,7 @@ export default {
               this.$store.dispatch("postify/postPostify", {
                 imageUrl: url,
                 imageName: this.imageUploadedName,
+                username: this.profile.username,
                 content: this.newPostifyContent,
               });
 

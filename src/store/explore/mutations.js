@@ -33,6 +33,7 @@ export function getExplores(state) {
 export function shareExplore(state, payload) {
   let newExplore = {
     userId: auth.currentUser.uid,
+    username: payload.username,
     tag: payload.tag || null,
     content: payload.content || null,
     imageUrl: payload.imageUrl || null,
